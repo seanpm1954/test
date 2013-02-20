@@ -14,7 +14,19 @@ $app->delete('/bids/:id', 'deleteWine');
 $app->run();
 
 function getbids() {
-	$sql = "select * FROM bidLog ";
+	$sql = "SELECT bidLog.bidID,
+            	bidLog.customerID,
+            	bidLog.userID,
+            	bidLog.bidDate,
+            	bidLog.projectName,
+            	bidLog.projectType,
+            	bidLog.bidAmount,
+            	bidLog.`status`,
+            	bidLog.startDate,
+            	customers.CustName,
+            	`user`.username
+            FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
+            	 INNER JOIN `user` ON bidLog.userID = `user`.userID ";
 	try {
 		$db = getConnection();
 		$stmt = $db->query($sql);  
@@ -27,7 +39,19 @@ function getbids() {
 }
 
 function getbid($id) {
-	$sql = "SELECT * FROM bidLog WHERE bidID=:id";
+	$sql = "SELECT bidLog.bidID,
+            	bidLog.customerID,
+            	bidLog.userID,
+            	bidLog.bidDate,
+            	bidLog.projectName,
+            	bidLog.projectType,
+            	bidLog.bidAmount,
+            	bidLog.`status`,
+            	bidLog.startDate,
+            	customers.CustName,
+            	`user`.username
+            FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
+            	 INNER JOIN `user` ON bidLog.userID = `user`.userID WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
