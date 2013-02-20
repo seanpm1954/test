@@ -5,3 +5,5 @@
 test.iws
 
 *.xml
+
+.idea/workspace.xml
