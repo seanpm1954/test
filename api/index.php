@@ -23,6 +23,8 @@ function getbids() {
             	bidLog.bidAmount,
             	bidLog.`status`,
             	bidLog.startDate,
+            	bidLog.location,
+            	bidLog.comments,
             	customers.CustName,
             	`user`.username
             FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
@@ -48,6 +50,8 @@ function getbid($id) {
             	bidLog.bidAmount,
             	bidLog.`status`,
             	bidLog.startDate,
+            	bidLog.location,
+                bidLog.comments,
             	customers.CustName,
             	`user`.username
             FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
