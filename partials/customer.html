@@ -1,0 +1,7 @@
+Customers
+<div ng-controller="CustCtrl">
+    <select ng-model="custID" ng-change="selectAction()">
+        <option ng-repeat="cust in custs" value="{{cust.CustomerID}}">{{cust.CustName}}</option>
+    </select>
+    Selected= {{custID}}
+</div>

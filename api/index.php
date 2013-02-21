@@ -11,6 +11,8 @@ $app->post('/bids', 'addbid');
 $app->put('/bids/:id', 'updatebid');
 $app->delete('/bids/:id', 'deletebid');
 
+$app->get('/customers', 'getcustomers');
+
 $app->run();
 
 function getbids() {
@@ -26,9 +28,9 @@ function getbids() {
             	bidLog.location,
             	bidLog.comments,
             	customers.CustName,
-            	`user`.username
+            	`users`.username
             FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
-            	 INNER JOIN `user` ON bidLog.userID = `user`.userID ";
+            	 INNER JOIN `users` ON bidLog.userID = `users`.userID ";
 	try {
 		$db = getConnection();
 		$stmt = $db->query($sql);  
@@ -53,9 +55,9 @@ function getbid($id) {
             	bidLog.location,
                 bidLog.comments,
             	customers.CustName,
-            	`user`.username
+            	`users`.username
             FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
-            	 INNER JOIN `user` ON bidLog.userID = `user`.userID WHERE bidID=:id";
+            	 INNER JOIN `users` ON bidLog.userID = `users`.userID WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
@@ -100,10 +102,11 @@ function updatebid($id) {
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
 	$bid = json_decode($body);
-	$sql = "UPDATE bidLog SET  projectName=:projectName WHERE bidID=:id";
+	$sql = "UPDATE bidLog SET  customerID=:customerID,projectName=:projectName WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
+		$stmt->bindParam("customerID", $bid->customerID);
         $stmt->bindParam("projectName", $bid->projectName);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
@@ -153,4 +156,17 @@ function getConnection() {
 	return $dbh;
 }
 
+
+function getcustomers() {
+	$sql = "SELECT * from customers";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$customers = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($customers);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
 ?>

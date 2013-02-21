@@ -6,13 +6,18 @@ var app = angular.module('App',['ngResource']).
             when('/',{templateUrl:'partials/list.html', controller:'MainCtrl'}).
             when('/new/:id',{templateUrl:'partials/edit.html', controller:'NewCtrl'}).
             when('/edit/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
-            when('/delete/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'})
+            when('/delete/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
+            when('/customers',{templateUrl:'partials/customer.html', controller:'CustCtrl'})
+
 
 
     });
 
 app.factory('Bid', function($resource){
    return $resource('api/bids/:bidID', {bidID: '@id'}, {update:{method: 'PUT'}, isArray:true});
+});
+app.factory('Cust', function($resource){
+    return $resource('api/customers/:CustomerID', {CustomerID: '@id'}, {update:{method: 'PUT'}, isArray:true});
 });
 
 function NewCtrl($scope, $location, $routeParams, Bid){
@@ -56,3 +61,11 @@ function MainCtrl($scope, $location, Bid) {
     $scope.bids =Bid.query();
 
     }
+
+function CustCtrl($scope,$location, Cust){
+
+    $scope.custs =Cust.query();
+    $scope.selectAction = function() {
+
+    };
+}

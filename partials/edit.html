@@ -16,7 +16,10 @@
         </thead>
         <tbody>
         <tr>
-            <td><input ng-model="bid.customerID" style="width:75px " placeholder="Customer"></td>
+            <td><select ng-controller="CustCtrl" ng-model="bid.customerID" ng-change="selectAction()">
+                <option value="{{bid.customerID}}">{{bid.CustName}}</option>
+                <option ng-repeat="cust in custs" value="{{cust.CustomerID}}">{{cust.CustName}}</option>
+            </select></td>
             <td><input ng-model="bid.userID"  style="width:75px " placeholder="Entered By"></td>
             <td><input ng-model="bid.bidDate" style="width:75px " placeholder="Bid Date"></td>
             <td><input ng-model="bid.projectName" style="width:75px " placeholder="Project Name"></td>
