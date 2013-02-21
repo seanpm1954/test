@@ -4,7 +4,7 @@ var app = angular.module('App',['ngResource']).
 
         $routeProvider.
             when('/',{templateUrl:'partials/list.html', controller:'MainCtrl'}).
-            when('/new',{templateUrl:'partials/edit.html', controller:'NewCtrl'}).
+            when('/new/:id',{templateUrl:'partials/edit.html', controller:'NewCtrl'}).
             when('/edit/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'})
 
     });
@@ -13,17 +13,17 @@ app.factory('Bid', function($resource){
    return $resource('api/bids/:bidID', {bidID: '@id'}, {update:{method: 'PUT'}, isArray:true});
 });
 
-function NewCtrl($scope, $location){
+function NewCtrl($scope, $location, $routeParams, Bid){
+    $scope.bid = Bid.get({bidID: $routeParams.id});
+console.log("ID " + $routeParams.id);
     $scope.save = function(){
-        $scope.bid.save();
-
+        this.bid.$save();
         $location.path('/');
     }
 
 }
 
 function EditCtrl($scope, $location, $routeParams, Bid){
-
     $scope.bid = Bid.get({bidID: $routeParams.id});
 
     $scope.save = function(){

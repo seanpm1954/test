@@ -70,14 +70,13 @@ function getbid($id) {
 }
 
 function addbid() {
-	error_log('addbid\n', 3, '/var/tmp/php.log');
+	error_log('addbid\n\n', 4, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
 	$bid = json_decode($request->getBody());
 	$sql = "INSERT INTO bidLog (customerID, userID, bidDate, projectName, projectType, bidAmount, status, startDate, location, comments) VALUES (:customerID, :userID, :bidDate, :projectName, :projectType, :bidAmount, :status, :startDate, :location, :comments)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("bidID", $bid->bidID);
 		$stmt->bindParam("customerID", $bid->customerID);
 		$stmt->bindParam("userID", $bid->userID);
 		$stmt->bindParam("bidDate", $bid->bidDate);
