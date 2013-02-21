@@ -15,6 +15,8 @@ app.factory('Bid', function($resource){
 
 function NewCtrl($scope, $location){
     $scope.save = function(){
+        $scope.bid.save();
+
         $location.path('/');
     }
 
@@ -25,6 +27,7 @@ function EditCtrl($scope, $location, $routeParams, Bid){
     $scope.bid = Bid.get({bidID: $routeParams.id});
 
     $scope.save = function(){
+        $scope.bid.$update({bidID:$routeParams.id});
         $location.path('/');
     }
 

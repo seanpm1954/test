@@ -7,9 +7,9 @@ $app = new Slim();
 $app->get('/bids', 'getbids');
 $app->get('/bids/:id',	'getbid');
 $app->get('/bids/search/:query', 'findByName');
-$app->post('/bids', 'addWine');
-$app->put('/bids/:id', 'updateWine');
-$app->delete('/bids/:id', 'deleteWine');
+$app->post('/bids', 'addbid');
+$app->put('/bids/:id', 'updatebid');
+$app->delete('/bids/:id', 'deletebid');
 
 $app->run();
 
@@ -69,55 +69,54 @@ function getbid($id) {
 	}
 }
 
-function addWine() {
-	error_log('addWine\n', 3, '/var/tmp/php.log');
+function addbid() {
+	error_log('addbid\n', 3, '/var/tmp/php.log');
 	$request = Slim::getInstance()->request();
-	$wine = json_decode($request->getBody());
-	$sql = "INSERT INTO wine (name, grapes, country, region, year, description) VALUES (:name, :grapes, :country, :region, :year, :description)";
+	$bid = json_decode($request->getBody());
+	$sql = "INSERT INTO bidLog (customerID, userID, bidDate, projectName, projectType, bidAmount, status, startDate, location, comments) VALUES (:customerID, :userID, :bidDate, :projectName, :projectType, :bidAmount, :status, :startDate, :location, :comments)";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("name", $wine->name);
-		$stmt->bindParam("grapes", $wine->grapes);
-		$stmt->bindParam("country", $wine->country);
-		$stmt->bindParam("region", $wine->region);
-		$stmt->bindParam("year", $wine->year);
-		$stmt->bindParam("description", $wine->description);
+		$stmt->bindParam("bidID", $bid->bidID);
+		$stmt->bindParam("customerID", $bid->customerID);
+		$stmt->bindParam("userID", $bid->userID);
+		$stmt->bindParam("bidDate", $bid->bidDate);
+		$stmt->bindParam("projectName", $bid->projectName);
+		$stmt->bindParam("projectType", $bid->projectType);
+        $stmt->bindParam("bidAmount", $bid->bidAmount);
+		$stmt->bindParam("status", $bid->status);
+		$stmt->bindParam("startDate", $bid->startDate);
+		$stmt->bindParam("location", $bid->location);
+        $stmt->bindParam("comments", $bid->comments);
 		$stmt->execute();
-		$wine->id = $db->lastInsertId();
 		$db = null;
-		echo json_encode($wine); 
+		echo json_encode($bid);
 	} catch(PDOException $e) {
 		error_log($e->getMessage(), 3, '/var/tmp/php.log');
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
 
-function updateWine($id) {
+function updatebid($id) {
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
-	$wine = json_decode($body);
-	$sql = "UPDATE wine SET name=:name, grapes=:grapes, country=:country, region=:region, year=:year, description=:description WHERE id=:id";
+	$bid = json_decode($body);
+	$sql = "UPDATE bidLog SET  projectName=:projectName WHERE bidID=:id";
 	try {
 		$db = getConnection();
-		$stmt = $db->prepare($sql);  
-		$stmt->bindParam("name", $wine->name);
-		$stmt->bindParam("grapes", $wine->grapes);
-		$stmt->bindParam("country", $wine->country);
-		$stmt->bindParam("region", $wine->region);
-		$stmt->bindParam("year", $wine->year);
-		$stmt->bindParam("description", $wine->description);
+		$stmt = $db->prepare($sql);
+        $stmt->bindParam("projectName", $bid->projectName);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
-		echo json_encode($wine); 
+		echo json_encode($bid);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
 
-function deleteWine($id) {
-	$sql = "DELETE FROM wine WHERE id=:id";
+function deletebid($id) {
+	$sql = "DELETE FROM wine WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
@@ -130,23 +129,23 @@ function deleteWine($id) {
 }
 
 function findByName($query) {
-	$sql = "SELECT * FROM wine WHERE UPPER(name) LIKE :query ORDER BY name";
+	$sql = "SELECT * FROM bidLog WHERE UPPER(name) LIKE :query ";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
 		$query = "%".$query."%";  
 		$stmt->bindParam("query", $query);
 		$stmt->execute();
-		$wines = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$bids = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
-		echo '{"wine": ' . json_encode($wines) . '}';
+		echo '{"bid": ' . json_encode($bids) . '}';
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}'; 
 	}
 }
 
 function getConnection() {
-	$dbhost="127.0.0.1";
+	$dbhost="localhost";
 	$dbuser="james";
 	$dbpass="jpmgolf";
 	$dbname="insul8";

@@ -108,6 +108,7 @@ class Slim_Http_Response {
         402 => '402 Payment Required',
         403 => '403 Forbidden',
         404 => '404 Not Found',
+        405 => '405 chkMethod Not Allowed',
         405 => '405 Method Not Allowed',
         406 => '406 Not Acceptable',
         407 => '407 Proxy Authentication Required',
