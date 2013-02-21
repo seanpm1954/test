@@ -115,7 +115,7 @@ function updatebid($id) {
 }
 
 function deletebid($id) {
-	$sql = "DELETE FROM wine WHERE bidID=:id";
+	$sql = "DELETE FROM bidLog WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  

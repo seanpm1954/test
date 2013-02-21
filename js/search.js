@@ -5,7 +5,9 @@ var app = angular.module('App',['ngResource']).
         $routeProvider.
             when('/',{templateUrl:'partials/list.html', controller:'MainCtrl'}).
             when('/new/:id',{templateUrl:'partials/edit.html', controller:'NewCtrl'}).
-            when('/edit/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'})
+            when('/edit/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
+            when('/delete/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'})
+
 
     });
 
@@ -29,8 +31,12 @@ function EditCtrl($scope, $location, $routeParams, Bid){
     $scope.save = function(){
         $scope.bid.$update({bidID:$routeParams.id});
         $location.path('/');
-    }
+        }
 
+    $scope.delete = function(){
+        $scope.bid.$delete({bidID:$routeParams.id});
+        $location.path('/');
+    }
 }
 
 function MainCtrl($scope, $location, Bid) {
