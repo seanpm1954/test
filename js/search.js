@@ -16,16 +16,24 @@ app.factory('Bid', function($resource){
 });
 
 function NewCtrl($scope, $location, $routeParams, Bid){
+
+    $scope.disableDelete = true;
+
     $scope.bid = Bid.get({bidID: $routeParams.id});
-console.log("ID " + $routeParams.id);
+
     $scope.save = function(){
         this.bid.$save();
+        $location.path('/');
+    }
+    $scope.cancel=function(){
         $location.path('/');
     }
 
 }
 
 function EditCtrl($scope, $location, $routeParams, Bid){
+    $scope.disableDelete = false;
+
     $scope.bid = Bid.get({bidID: $routeParams.id});
 
     $scope.save = function(){
@@ -35,6 +43,10 @@ function EditCtrl($scope, $location, $routeParams, Bid){
 
     $scope.delete = function(){
         $scope.bid.$delete({bidID:$routeParams.id});
+        $location.path('/');
+    }
+
+    $scope.cancel=function(){
         $location.path('/');
     }
 }
