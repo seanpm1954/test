@@ -20,12 +20,21 @@
                 <option value="{{bid.customerID}}">{{bid.CustName}}</option>
                 <option ng-repeat="cust in custs" value="{{cust.CustomerID}}">{{cust.CustName}}</option>
             </select></td>
-            <td><input ng-model="bid.userID"  style="width:75px " placeholder="Entered By"></td>
+
+            <td><select ng-controller="UserCtrl" ng-model="bid.userID" ng-change="selectAction()">
+                <option value="{{bid.userID}}">{{bid.username}}</option>
+                <option ng-repeat="user in users" value="{{user.userID}}">{{user.username}}</option>
+            </select></td>
+
             <td><input ng-model="bid.bidDate" style="width:75px " placeholder="Bid Date"></td>
             <td><input ng-model="bid.projectName" style="width:75px " placeholder="Project Name"></td>
             <td><input ng-model="bid.projectType" style="width:75px " placeholder="Type"></td>
             <td><input ng-model="bid.bidAmount" style="width:75px " placeholder="Amount"></td>
-            <td><input ng-model="bid.status" style="width:75px " placeholder="Status"></td>
+
+            <td><select ng-controller="StatusCtrl" ng-model="bid.status" ng-change="selectAction()">
+                <option value="{{bid.status}}">{{bid.statusName}}</option>
+                <option ng-repeat="stat in status" value="{{stat.statusID}}">{{stat.statusName}}</option>
+            </select></td>
             <td><input ng-model="bid.startDate" style="width:75px " placeholder="Start Date"></td>
             <td><input ng-model="bid.location" style="width:75px " placeholder="Location"></td>
             <td><input ng-model="bid.comments" style="width:75px " placeholder="Comments"></td>

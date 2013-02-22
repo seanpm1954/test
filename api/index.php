@@ -13,6 +13,12 @@ $app->delete('/bids/:id', 'deletebid');
 
 $app->get('/customers', 'getcustomers');
 
+
+$app->get('/users', 'getusers');
+
+$app->get('/status', 'getstatus');
+
+
 $app->run();
 
 function getbids() {
@@ -28,9 +34,11 @@ function getbids() {
             	bidLog.location,
             	bidLog.comments,
             	customers.CustName,
-            	`users`.username
+            	users.username,
+            	status.statusName
             FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
-            	 INNER JOIN `users` ON bidLog.userID = `users`.userID ";
+            	 INNER JOIN users ON bidLog.userID = users.userID
+            	 INNER JOIN `status` ON bidLog.`status` = `status`.statusID";
 	try {
 		$db = getConnection();
 		$stmt = $db->query($sql);  
@@ -55,9 +63,12 @@ function getbid($id) {
             	bidLog.location,
                 bidLog.comments,
             	customers.CustName,
-            	`users`.username
+            	users.username,
+            	status.statusName
             FROM bidLog INNER JOIN customers ON bidLog.customerID = customers.CustomerID
-            	 INNER JOIN `users` ON bidLog.userID = `users`.userID WHERE bidID=:id";
+            	 INNER JOIN `users` ON bidLog.userID = `users`.userID
+            	 INNER JOIN `status` ON bidLog.`status` = `status`.statusID
+            	 WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);  
@@ -102,12 +113,14 @@ function updatebid($id) {
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
 	$bid = json_decode($body);
-	$sql = "UPDATE bidLog SET  customerID=:customerID,projectName=:projectName WHERE bidID=:id";
+	$sql = "UPDATE bidLog SET  customerID=:customerID, userID=:userID, projectName=:projectName, status=:status WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
 		$stmt->bindParam("customerID", $bid->customerID);
+		$stmt->bindParam("userID", $bid->userID);
         $stmt->bindParam("projectName", $bid->projectName);
+        $stmt->bindParam("status", $bid->status);
 		$stmt->bindParam("id", $id);
 		$stmt->execute();
 		$db = null;
@@ -165,6 +178,34 @@ function getcustomers() {
 		$customers = $stmt->fetchAll(PDO::FETCH_OBJ);
 		$db = null;
 		echo json_encode($customers);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
+
+
+
+function getusers() {
+	$sql = "SELECT * from users";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$users = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($users);
+	} catch(PDOException $e) {
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
+
+function getstatus() {
+	$sql = "SELECT * from status";
+	try {
+		$db = getConnection();
+		$stmt = $db->query($sql);
+		$status = $stmt->fetchAll(PDO::FETCH_OBJ);
+		$db = null;
+		echo json_encode($status);
 	} catch(PDOException $e) {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}

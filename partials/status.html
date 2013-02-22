@@ -1,0 +1,7 @@
+Status
+<div ng-controller="StatusCtrl">
+    <select ng-model="statusID" ng-change="selectAction()">
+        <option ng-repeat="stat in status" value="{{stat.statusID}}">{{stat.statusName}}</option>
+    </select>
+    Selected= {{statusID}}
+</div>

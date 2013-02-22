@@ -1,0 +1,7 @@
+Users
+<div ng-controller="UserCtrl">
+    <select ng-model="userID" ng-change="selectAction()">
+        <option ng-repeat="user in users" value="{{user.userID}}">{{user.username}}</option>
+    </select>
+    Selected= {{userID}}
+</div>
