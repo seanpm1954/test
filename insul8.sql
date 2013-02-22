@@ -9,7 +9,7 @@
  Target Server Version : 50528
  File Encoding         : utf-8
 
- Date: 02/21/2013 15:41:20 PM
+ Date: 02/21/2013 23:52:00 PM
 */
 
 SET NAMES utf8;
@@ -38,13 +38,13 @@ CREATE TABLE `bidLog` (
   CONSTRAINT `fk3` FOREIGN KEY (`status`) REFERENCES `status` (`statusID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk1` FOREIGN KEY (`customerID`) REFERENCES `customers` (`CustomerID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk2` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 --  Records of `bidLog`
 -- ----------------------------
 BEGIN;
-INSERT INTO `bidLog` VALUES ('2', '2', '1', '2013-02-05', 'test 222', 'type 2', '2000', '1', '2013-02-12', 'La Porte', 'comments for test 2'), ('4', '8', '1', '2013-02-05', 'project 1 new', '1', '3500', '1', '2013-02-05', 'Seabrook', 'newly added');
+INSERT INTO `bidLog` VALUES ('2', '1', '2', '2013-02-05', 'test 222', 'type 2', '2000', '1', '2013-02-12', 'La Porte', 'comments for test 2'), ('4', '8', '1', '2013-02-05', 'project 1 new', '1', '3500', '1', '2013-02-05', 'Seabrook', 'newly added'), ('6', '10', '2', '2013-02-05', 'name', 'type', '1200', '1', '2013-02-05', 'pasadena', 'lucky');
 COMMIT;
 
 -- ----------------------------
