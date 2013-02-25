@@ -20,16 +20,17 @@
                 ng-options="cust.CustomerID as cust.CustName for cust in custs"></select></td>
 
             <td><select ng-controller="UserCtrl" ng-model="bid.userID"
-                 ng-options="user.userID as user.username for user in users"></select></td>
+                 ng-options="user.userID as user.username for user in users" style="width: 100%;"></select></td>
 
-            <td><input ng-model="bid.bidDate" style="width:75px " placeholder="Bid Date"></td>
+            <td><input type="text" ng-model="bid.bidDate" datepicker/></td>
             <td><input ng-model="bid.projectName" style="width:75px " placeholder="Project Name"></td>
             <td><input ng-model="bid.projectType" style="width:75px " placeholder="Type"></td>
             <td><input ng-model="bid.bidAmount" style="width:75px " placeholder="Amount"></td>
 
             <td><select ng-controller="StatusCtrl" ng-model="bid.status"
-                ng-options="stat.statusID as stat.statusName for stat in status"></select></td>
-            <td><input ng-model="bid.startDate" style="width:75px " placeholder="Start Date"></td>
+                ng-options="stat.statusID as stat.statusName for stat in status" style="width: 100%;"></select></td>
+
+            <td><input type="text"  ng-model="bid.startDate" datepicker/></td>
             <td><input ng-model="bid.location" style="width:75px " placeholder="Location"></td>
             <td><input ng-model="bid.comments" style="width:75px " placeholder="Comments"></td>
         </tr>

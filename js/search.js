@@ -9,7 +9,8 @@ var app = angular.module('App',['ngResource']).
             when('/delete/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
             when('/customers',{templateUrl:'partials/customer.html', controller:'CustCtrl'}).
             when('/users', {templateUrl:'partials/users.html', controller:'UserCtrl'}).
-            when('/status', {templateUrl:'partials/status.html', controller:'StatusCtrl'})
+            when('/status', {templateUrl:'partials/status.html', controller:'StatusCtrl'}).
+            when('/caltest', {templateUrl:'partials/caltest.html', controller:'StatusCtrl'})
 
 
     });
@@ -94,3 +95,23 @@ function StatusCtrl($scope, $location, Status) {
 
     };
 }
+
+
+app.directive('datepicker', function ($parse) {
+    var directiveDefinitionObject = {
+        restrict:'A',
+        link:function postLink(scope, iElement, iAttrs) {
+            iElement.datepicker({
+                autoSize:true,
+                dateFormat:'yy-mm-dd',
+                onSelect:function (dateText, inst) {
+                    scope.$apply(function (scope) {
+                        $parse(iAttrs.ngModel).assign(scope, dateText);
+                    });
+                }
+            });
+        }
+    };
+    return directiveDefinitionObject;
+});
+

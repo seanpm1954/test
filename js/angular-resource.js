@@ -4,7 +4,7 @@
  * License: MIT
  */
 (function(window, angular, undefined) {
-'use strict';
+
 
 /**
  * @ngdoc overview
