@@ -9,6 +9,7 @@ var app = angular.module('App',['ngResource']).
             when('/delete/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
             when('/customers',{templateUrl:'partials/customer.html', controller:'CustCtrl'}).
             when('/users', {templateUrl:'partials/users.html', controller:'UserCtrl'}).
+            when('/user', {templateUrl:'partials/newUser.html', controller:'NewUserCtrl'}).
             when('/status', {templateUrl:'partials/status.html', controller:'StatusCtrl'}).
             when('/caltest', {templateUrl:'partials/caltest.html', controller:'StatusCtrl'})
 
@@ -24,6 +25,9 @@ app.factory('Cust', function($resource){
 
 app.factory('User', function ($resource) {
     return $resource('api/users/:userID', {UserID:'@id'}, {update:{method:'PUT'}, isArray:true});
+});
+app.factory('User1', function ($resource) {
+    return $resource('api/user/:userID', {UserID:'@id'}, {update:{method:'PUT'}, isArray:true});
 });
 
 app.factory('Status', function ($resource) {
@@ -96,7 +100,21 @@ function StatusCtrl($scope, $location, Status) {
     };
 }
 
+function NewUserCtrl($scope, $location, $routeParams, User1) {
 
+    $scope.disableDelete = true;
+
+    $scope.user = User1.get({User1:$routeParams.id});
+
+    $scope.save = function () {
+        this.user.$save();
+        //$location.path('/');
+    }
+    $scope.cancel = function () {
+        $location.path('/');
+    }
+
+}
 app.directive('datepicker', function ($parse) {
     var directiveDefinitionObject = {
         restrict:'A',

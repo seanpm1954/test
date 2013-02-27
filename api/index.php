@@ -15,6 +15,7 @@ $app->get('/customers', 'getcustomers');
 
 
 $app->get('/users', 'getusers');
+$app->post('/user', 'adduser');
 
 $app->get('/status', 'getstatus');
 
@@ -201,6 +202,25 @@ function getusers() {
 		echo '{"error":{"text":'. $e->getMessage() .'}}';
 	}
 }
+
+function adduser() {
+	error_log('addUSER\n\n', 4, '/var/tmp/php.log');
+	$request = Slim::getInstance()->request();
+	$user = json_decode($request->getBody());
+	$sql = "INSERT INTO users (username) VALUES (:username)";
+	try {
+		$db = getConnection();
+		$stmt = $db->prepare($sql);
+		$stmt->bindParam("username", $user->username);
+		$stmt->execute();
+		$db = null;
+		echo json_encode($user);
+	} catch(PDOException $e) {
+		error_log($e->getMessage(), 3, '/var/tmp/php.log');
+		echo '{"error":{"text":'. $e->getMessage() .'}}';
+	}
+}
+
 
 function getstatus() {
 	$sql = "SELECT * from status";
