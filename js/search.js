@@ -5,7 +5,7 @@ var app = angular.module('App',['ngResource', 'bootstrap']).
         $routeProvider.
             when('/',{templateUrl:'partials/list.html', controller:'MainCtrl'}).
             when('/new/:id',{templateUrl:'partials/edit.html', controller:'NewCtrl'}).
-            when('/edit/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
+            when('/edit/:id',{templateUrl:'partials/edit1.html', controller:'EditCtrl'}).
             when('/delete/:id',{templateUrl:'partials/edit.html', controller:'EditCtrl'}).
             when('/customers',{templateUrl:'partials/customer.html', controller:'CustCtrl'}).
             when('/users', {templateUrl:'partials/users.html', controller:'UserCtrl'}).
