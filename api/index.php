@@ -114,7 +114,7 @@ function updatebid($id) {
 	$request = Slim::getInstance()->request();
 	$body = $request->getBody();
 	$bid = json_decode($body);
-	$sql = "UPDATE bidLog SET  customerID=:customerID, userID=:userID, bidDate=:bidDate, projectName=:projectName, status=:status, startDate=:startDate, location=:location, comments=:comments WHERE bidID=:id";
+	$sql = "UPDATE bidLog SET  customerID=:customerID, userID=:userID, bidDate=:bidDate, projectName=:projectName, projectType=:projectType, bidAmount=:bidAmount, status=:status, startDate=:startDate, location=:location, comments=:comments WHERE bidID=:id";
 	try {
 		$db = getConnection();
 		$stmt = $db->prepare($sql);
@@ -122,6 +122,8 @@ function updatebid($id) {
 		$stmt->bindParam("userID", $bid->userID);
 		$stmt->bindParam("bidDate", $bid->bidDate);
         $stmt->bindParam("projectName", $bid->projectName);
+        $stmt->bindParam("projectType", $bid->projectType);
+        $stmt->bindParam("bidAmount", $bid->bidAmount);
         $stmt->bindParam("status", $bid->status);
         $stmt->bindParam("startDate", $bid->startDate);
         $stmt->bindParam("location", $bid->location);
