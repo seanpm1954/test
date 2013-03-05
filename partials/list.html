@@ -1,22 +1,21 @@
-    <table id="test" class="table table-striped">
+<table id="test" class="table table-striped">
         <thead>
         <tr>
             <td><a href="/new/0"><i class="icon-plus-sign"></i> </a></td>
-            <td>Customer</td>
-            <td>Created by</td>
-            <td>Bid date</td>
-            <td>Name</td>
-            <td>Type</td>
-            <td>Amount</td>
-            <td>Status</td>
-            <td>Start Date</td>
-            <td>Location</td>
-            <td>Comments</td>
-
+            <td><a href="/" ng-click="predicate='CustName'; reverse=!reverse">Customer</a></td>
+            <td><a href="/" ng-click="predicate='username'; reverse=!reverse">Created by</a></td>
+            <td><a href="/" ng-click="predicate='bidDate'; reverse=!reverse">Bid Date</a></td>
+            <td><a href="/" ng-click="predicate='projectName'; reverse=!reverse">Project Name</a></td>
+            <td><a href="/" ng-click="predicate='projectType'; reverse=!reverse">Type</a></td>
+            <td><a href="/" ng-click="predicate='bidAmount'; reverse=!reverse">Amount</a></td>
+            <td><a href="/" ng-click="predicate='statusName'; reverse=!reverse">Status</a></td>
+            <td><a href="/" ng-click="predicate='startDate'; reverse=!reverse">Start Date</a></td>
+            <td><a href="/" ng-click="predicate='location'; reverse=!reverse">Location</a></td>
+            <td><a href="/" ng-click="predicate='comments'; reverse=!reverse">Comments</a></td>
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="bid in bids">
+        <tr ng-repeat="bid in bids | orderBy:predicate:reverse">
             <td><a href="/edit/{{bid.bidID}}"><i class="icon-edit"></i></a> </td>
             <td>{{bid.CustName}}</td>
             <td>{{bid.username}}</td>

@@ -71,8 +71,10 @@ function EditCtrl($scope, $location, $routeParams, Bid){
 }
 
 function MainCtrl($scope, $location, Bid) {
-
     $scope.bids =Bid.query();
+    $scope.predicate='CustName';
+
+
 
     }
 
