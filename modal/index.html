@@ -1,0 +1,49 @@
+
+<html ng-app="dialog">
+<head>
+    <title>Bootstrap Test</title>
+    <link rel="stylesheet" href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css">
+    <script src="http://code.jquery.com/jquery-1.7.1.js"></script>
+    <script src="http://twitter.github.com/bootstrap/1.4.0/bootstrap-modal.js"></script>
+    <script src="http://ci.angularjs.org/job/angular.js-angular-master/201/artifact/build/pkg/0.10.7-8b32900d/angular-0.10.7-8b32900d.js"></script>
+    <script type="text/javascript" src="modal.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+
+    <article class="content" ng-controller="MainCtrl" ng-init="addCustomerDialog={show:false}">
+
+        <a class="btn" ng-click="addCustomerDialog.show = true">Add New Customer</a>
+
+        <div>
+            <bs-dialog when="addCustomerDialog.show"
+                       title="Add New Customer"
+                       primary-label="Change"
+                       primary-action="changeName(CustName)">
+                <p></p>
+                <label for="CustName">Customer Name:</label><input name="CustName" ng-model="CustName">
+            </bs-dialog>
+        </div>
+    </article>
+</div>
+
+
+
+<!-- angular dialog template -->
+<script type="text/ng-template" id="dialog-template">
+    <div id="my-modal" class="modal hide fade">
+        <div class="modal-header">
+            <a class="close">&times;</a>
+
+            <h3>{{title}}</h3>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <a class="btn primary" ng-click="primaryAction()">{{primaryLabel}}</a>
+            <a class="btn secondary" ng-click="secondaryAction()">{{secondaryLabel}}</a>
+        </div>
+    </div>
+</script>
+</body>
+</html>

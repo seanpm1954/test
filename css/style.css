@@ -9,6 +9,9 @@ body {
     height: 100%;
 }
 
+H2 {
+    text-align: center
+}
 H5 {
     text-align: center
 }
@@ -25,3 +28,10 @@ IMG.displayed {
     height: 90px; /* Height of the footer */
     background: #C8C8C8;
 }
+
+/*
+.ui-datepicker {
+    background: #a0d5f2;
+    border: 1px solid #555;
+    color: #3fafec;
+}*/

@@ -1,6 +1,6 @@
 var app = angular.module('App',['ngResource', 'bootstrap']).
     config(function($routeProvider, $locationProvider){
-        $locationProvider.html5Mode(true);
+        //$locationProvider.html5Mode(true);
 
         $routeProvider.
             when('/',{templateUrl:'partials/list.html', controller:'MainCtrl'}).
@@ -10,9 +10,7 @@ var app = angular.module('App',['ngResource', 'bootstrap']).
             when('/customers',{templateUrl:'partials/customer.html', controller:'CustCtrl'}).
             when('/users', {templateUrl:'partials/users.html', controller:'UserCtrl'}).
             when('/user', {templateUrl:'partials/newUser.html', controller:'NewUserCtrl'}).
-            when('/status', {templateUrl:'partials/status.html', controller:'StatusCtrl'}).
-            when('/caltest', {templateUrl:'partials/caltest.html', controller:'StatusCtrl'})
-
+            when('/status', {templateUrl:'partials/status.html', controller:'StatusCtrl'})
 
     });
 
@@ -39,7 +37,6 @@ function NewCtrl($scope, $location, $routeParams, Bid){
     $scope.disableDelete = true;
 
     $scope.bid = Bid.get({bidID: $routeParams.id});
-
     $scope.save = function(){
         this.bid.$save();
         $location.path('/');
@@ -75,8 +72,7 @@ function MainCtrl($scope, $location, Bid) {
     $scope.predicate='CustName';
 
 
-
-    }
+}
 
 function CustCtrl($scope,$location, Cust){
 

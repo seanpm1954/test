@@ -1,7 +1,7 @@
 <table id="test" class="table table-striped">
         <thead>
         <tr>
-            <td><a href="/new/0"><i class="icon-plus-sign"></i> </a></td>
+            <td><a href="#/new/0"><i class="icon-plus-sign"></i> </a></td>
             <td><a href="/" ng-click="predicate='CustName'; reverse=!reverse">Customer</a></td>
             <td><a href="/" ng-click="predicate='username'; reverse=!reverse">Created by</a></td>
             <td><a href="/" ng-click="predicate='bidDate'; reverse=!reverse">Bid Date</a></td>
@@ -16,7 +16,7 @@
         </thead>
         <tbody>
         <tr ng-repeat="bid in bids | orderBy:predicate:reverse">
-            <td><a href="/edit/{{bid.bidID}}"><i class="icon-edit"></i></a> </td>
+            <td><a href="#/edit/{{bid.bidID}}"><i class="icon-edit"></i></a> </td>
             <td>{{bid.CustName}}</td>
             <td>{{bid.username}}</td>
             <td>{{bid.bidDate}}</td>
