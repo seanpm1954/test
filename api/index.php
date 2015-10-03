@@ -165,9 +165,9 @@ function findByName($query) {
 
 function getConnection() {
 	$dbhost="localhost";
-	$dbuser="james";
-	$dbpass="jpmgolf";
-	$dbname="insul8";
+	$dbuser="";
+	$dbpass="";
+	$dbname="";
 	$dbh = new PDO("mysql:host=$dbhost;dbname=$dbname", $dbuser, $dbpass);	
 	$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	return $dbh;
